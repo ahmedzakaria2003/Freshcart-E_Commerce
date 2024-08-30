@@ -1,0 +1,76 @@
+<img class="wave" src="../../../assets/images/wave.png">
+<div class="container">
+	<div class="img">
+		<img src="../../../assets/images/bg.svg">
+	</div>
+	<div class="login-content">
+		<form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+			<img src="./assets/images/avatar.svg">
+			<h2 class="title">Welcome</h2>
+			<div class="input-div one">
+				<div class="i mt-3">
+					<i class="fa-solid fa-envelope email"></i>
+				</div>
+
+				<div class="div mt-3">
+					<input type="email" formControlName="email" class="input form-control " placeholder="email" #input>
+
+					@if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||
+					loginForm.get('email')?.dirty )) {
+					<div class="alert alert-danger w-75 mt-1">
+						@if (loginForm.get('email')?.getError('required') ){
+						<p class="m-0">email is required</p>
+						}
+						@else if (loginForm.get('email')?.getError('email')) {
+						<p class="m-0">Enter valid email</p>
+						}
+					</div>
+					}
+
+
+				</div>
+			</div>
+
+
+
+			<div class="input-div pass mt-4">
+				<div class="i">
+					<i class="fas fa-lock"></i>
+				</div>
+				<div class="div">
+					<input type="password" formControlName="password" class="input form-control" placeholder="password"
+						#input>
+					@if (loginForm.get('password')?.errors&& loginForm.get('password')?.touched ) {
+					<div class="alert alert-danger w-75 mt-1">
+						@if (loginForm.get('password')?.getError('required') ){
+						<p class="m-0">Password is requierd</p>
+						}
+						@else if (loginForm.get('password')?.getError('pattern')) {
+						<p class="m-0">Must be six characters at least</p>
+						}
+					</div>
+					}
+				</div>
+			</div>
+			<a class="mt-5 " routerLink="/forgot">Forgot Password?</a>
+
+			<input type="submit" class="btn " value="Login">
+
+			@if (isFailed) {
+			<div class="alert alert-danger">
+				<p class="m-0">"Incorrect email or password"
+				</p>
+			</div>
+			}
+
+
+			@if (isSuccess) {
+			<div class="alert alert-success">
+				<p class="m-0">"Login success"</p>
+			</div>
+
+			}
+
+		</form>
+	</div>
+</div>

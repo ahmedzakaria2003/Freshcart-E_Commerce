@@ -1,0 +1,19 @@
+@if (brandDetails) {
+<section class=" mx-auto">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="d-flex justify-content-between align-items-center border border-grey p-3">
+                    <div>
+                        <h2 class="text-main fw-bolder">{{brandDetails.name}}</h2>
+                        <h6>{{brandDetails.slug}}</h6>
+                    </div>
+                    <div>
+                        <img [src]="brandDetails.image" [alt]="brandDetails.name" class="w-75" height="200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+}

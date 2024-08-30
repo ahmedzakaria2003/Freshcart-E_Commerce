@@ -1,0 +1,18 @@
+<div class="container">
+    <section>
+        <div class="row gy-3">
+        @for (brand of brandsList; track brand._id) {
+        
+            <div class="col-md-3 border border-white product rounded  "  [routerLink]="['/specificbrand',brand._id]" >
+                <img [src]="brand.image" [alt]="brand.name" class="w-100">
+                <p class="text-center fw-medium">{{brand.name}}</p>
+                
+                </div>
+        
+        
+        }
+        
+        </div>
+        
+        </section>
+</div>

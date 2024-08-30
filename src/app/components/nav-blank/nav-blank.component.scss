@@ -1,0 +1,35 @@
+
+.nav-item:hover a{
+  color: #0aad0a; 
+
+}
+
+ .nav-item-cart:hover a{
+  color: #0aad0a; 
+cursor: pointer;
+
+}
+.nav-item{
+  transition: .5s;
+}
+
+.nav-item-cart{
+  transition: .5s;
+}
+.badge{
+
+  font-size: 16px;
+}
+
+
+.navbar {
+  padding-left: .4rem; 
+  padding-right: .4rem;
+}
+
+.nav-item-cart {
+  margin-left: .3rem; 
+  margin-right: .3rem; 
+}
+
+

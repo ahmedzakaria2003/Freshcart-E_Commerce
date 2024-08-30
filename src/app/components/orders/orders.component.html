@@ -1,0 +1,55 @@
+<section class="bg-main-light my-2  p-2 shadow w-75 m-auto mt-4">
+    <h1 class="text-center">Shipping Address</h1>
+    <form [formGroup]="ordersForm">
+        <div class="my-1">
+            <label for="details">Details</label>
+            <textarea id="details" class="form-control   " formControlName="details"></textarea>
+            @if (ordersForm.get('details')?.errors &&ordersForm.get('details')?.touched ) {
+            <div class="alert alert-danger w-50 ">
+                <p class="m-0">
+                    Details is requiered
+                </p>
+            </div>
+            }
+
+
+        </div>
+        <div class="my-1">
+            <label for="phone">Phone</label>
+            <input type="tel" class="form-control" id="phone" formControlName="phone">
+            @if (ordersForm.get('phone')?.errors &&ordersForm.get('phone')?.touched ) {
+            <div class="alert alert-danger w-50 ">
+                <p class="m-0">
+                    Phone is requiered
+                </p>
+            </div>
+            }
+        </div>
+        <div class="my-1">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" formControlName="city">
+            @if (ordersForm.get('city')?.errors &&ordersForm.get('city')?.touched ) {
+            <div class="alert alert-danger w-50 ">
+                <p class="m-0">
+                    City is requiered
+                </p>
+            </div>
+            }
+
+
+        </div>
+        <div class="div d-flex align-items-center justify-content-between">
+
+            <button class="btn-main mt-2" [disabled]="!ordersForm.valid" (click)="orderCashSubmit(ordersForm)">Pay on
+                delivery <span><i class="fa-solid fa-truck"></i></span></button>
+
+
+            <button class="btn-main mt-2" [disabled]="!ordersForm.valid" (click)="orderOnlineSubmit(ordersForm)">
+                Pay online <span><i class="fa-brands fa-cc-amazon-pay"></i></span>
+            </button>
+
+        </div>
+
+    </form>
+
+</section>

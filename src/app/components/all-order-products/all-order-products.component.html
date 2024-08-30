@@ -1,0 +1,48 @@
+<section  class=" mx-5 ">
+@for (order of allOrdersDetails; track $index) {
+
+    <div class="product mb-4 " >
+        <h3 class="p-2 text-center">Order Number :{{ $index + 1 }}</h3>
+        <div class="col-md-12 p-2 ">
+          <div>
+            <div class="text-center">
+              <h5 class=" text-main">
+                Total Order Price:
+                {{ order.totalOrderPrice | currency : "GBP" }}
+              </h5>
+  
+              <p>
+                Order Payment Method:{{ order.paymentMethodType }}
+              </p>
+              <p>Order Is Paid :{{ order.isPaid }}</p>
+              <p>Order Is Delivered : {{ order.isDelivered }}</p>
+            </div>
+          </div>
+        </div>
+  
+      @for (product of order.cartItems; track $index) {
+        <div class="row border-top border-bottom" >
+            <div class="col-md-1">
+              <div>
+                <img
+                  [src]="product.product.imageCover"
+                  class="w-100 object-fit-fill"
+                  [alt]="product.product.title"
+                  [title]="product.product.title"
+                />
+              </div>
+            </div>
+            <div class="col-md-11 mt-3">
+              <div>
+                <h3 class="h6">{{ product.product.title }}</h3>
+                <p class="text-main">Price:{{ product.price }}</p>
+                <p>Count:{{ product.count }}</p>
+              </div>
+            </div>
+          </div>
+      }
+      </div>
+
+
+}
+  </section>

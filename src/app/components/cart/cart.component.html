@@ -1,0 +1,65 @@
+
+
+
+@if (cartDetails?.products?.length) {
+  <section class="content bg-light-main shadow mx-auto w-75 rounded rounded-4 p-4 my-3 mt-5">
+    <h1 class="mb-2">Shop Cart:</h1>
+  
+    <h5 class="text-main fw-light ">Total cart price: {{cartDetails?.totalCartPrice  |currency :'GBP'}}  </h5>
+   
+  
+  
+  
+  
+  @for (item of cartDetails?.products; track item.product.id) {
+    <div class="row mb-2 border-bottom" >
+    <div class="col-md-1">
+    
+        <img [src]="item.product.imageCover" [alt]="item.product.title" class="w-100">
+    
+    </div>
+    <div class="col-md-11 d-flex align-items-center justify-content-between ">
+     <div class="div">
+        <h3 class="h5 fw-medium">{{item.product.title}}</h3>
+        <p class="text-main ">Price: {{item.price}}</p>
+       <button class="btn p-0" #element (click)="removeItemCart(item.product._id , element)"> <span><i class="fa-solid fa-trash text-danger"></i></span></button>
+     </div>
+     <div class="div d-flex align-items-center gap-2 ">
+       <span class="cursor-pointer" #element (click)="cartCount(item.product._id , item.count+1 ,element)"> <i class="fa-solid fa-circle-plus fa-xl text-main  "></i></span>
+       <span>{{item.count}}</span>
+        <span class="cursor-pointer" #element (click)="cartCount(item.product._id , item.count-1 , element)"><i class="fa-solid fa-circle-minus fa-xl text-main "></i></span>
+        
+     </div>
+    </div>
+    </div>
+  
+    
+    }
+  
+  
+   <div class="d-flex align-items-center justify-content-between">
+  
+    <button class="btn-main " [routerLink]="['/orders' , cartDetails?._id]">CheckOut</button>
+    <button class="btn btn-danger mb-2 "  #element (click)="clearCartItems(element)">Clear cart</button>
+  
+  
+   </div>
+  </section>
+}
+
+
+
+  
+  
+
+ @else  ()   { 
+
+    
+<section class="empty-content bg-light-main shadow mx-auto w-50 rounded rounded-4 p-4 my-3 mt-5 text-center">
+  <h1 class="mb-4">Your cart is empty!</h1>
+  <img src="./assets/images/cart empty.png" class="w-50" alt="">
+  <p class="text-main">It looks like you haven't added anything to your cart yet.</p>
+  <button class="btn-main" [routerLink]="['/home']">Continue Shopping</button>
+</section>
+}   
+
