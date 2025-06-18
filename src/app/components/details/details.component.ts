@@ -9,11 +9,12 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../core/services/wishlist.service';
+import { ChatComponent } from "../../chat/chat.component";
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [ CarouselModule ],
+  imports: [CarouselModule, ChatComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -93,7 +94,7 @@ getCart(id: string  , element:HTMLButtonElement): void {
   this._CartService.goToCart(id).subscribe({
     next: (res) => {
       console.log(res);
-      this._CartService.countProductsInCart.next(res.numOfCartItems);
+      this._CartService.countProductsInCart.set(res.numOfCartItems);
       this._Renderer2.removeAttribute(element,'disabled')
       this._ToastrService.success(res.message, 'Fresh cart', {
         progressBar: true,
@@ -120,7 +121,7 @@ getCart(id: string  , element:HTMLButtonElement): void {
     this._WishlistService.addProductToWishlist(id).subscribe({
     next:(res)=>{
     console.log(res);
-    this._WishlistService.countOfProductsInWishlist.next(res.data.length);
+    this._WishlistService.countOfProductsInWishlist.set(res.data.length);
     this._ToastrService.success(res.message ,  'Fresh cart' , {progressBar:true ,
       progressAnimation:'increasing'
       })

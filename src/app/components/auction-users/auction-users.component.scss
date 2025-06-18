@@ -1,0 +1,97 @@
+/* ===== Card Style ===== */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* ===== Button Style ===== */
+button {
+  font-weight: bold;
+  background-color: #17a2b8;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+  border: none;
+}
+
+button:hover {
+  background-color: #117a8b;
+}
+
+/* ===== Title Style ===== */
+.category-title {
+  margin-top: 90px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--dark-color, #343a40);
+}
+
+/* ===== Search & Filter Form ===== */
+input[type="text"],
+select.form-select {
+  height: 45px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+input[type="text"]:focus,
+select.form-select:focus {
+  outline: none;
+  border-color: #17a2b8;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+}
+
+/* ===== Filter Layout Improvements ===== */
+.filter-row {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.row > .col {
+  margin-bottom: 20px;
+}
+
+/* ===== Badge Style ===== */
+.badge {
+  font-size: 0.9rem;
+  padding: 0.4em 0.6em;
+  border-radius: 0.25rem;
+}
+
+.btn-reset {
+  background-color: #6c757d;
+}
+
+.btn-reset:hover {
+  background-color: #5a6268;
+}

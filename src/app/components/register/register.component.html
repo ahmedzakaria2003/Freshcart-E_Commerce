@@ -12,7 +12,7 @@
     }" id="name" class="form-control" formControlName="name">
                 @if (registerForm.get('name')?.errors && (registerForm.get('name')?.touched ||
                 registerForm.get('name')?.dirty) ){
-                <div class="alert alert-danger w-25">
+                <div class="alert alert-danger w-25 p-2">
                     @if (registerForm.get('name') && registerForm.get('name')?.getError('required')) {
                     <p class="m-0"> *Name is required</p>
                     }
@@ -41,7 +41,7 @@
 
                 @if (registerForm.get('email')?.errors && (registerForm.get('email')?.touched ||
                 registerForm.get('email')?.dirty )) {
-                <div class="alert alert-danger w-25">
+                <div class="alert alert-danger w-25 p-2">
                     @if (registerForm.get('email')?.getError('required') ){
                     <p class="m-0">Email is required</p>
                     }
@@ -64,7 +64,7 @@
 
                 @if (registerForm.get('myPhone')?.errors&& (registerForm.get('myPhone')?.touched ||
                 registerForm.get('myPhone')?.dirty)) {
-                <div class="alert alert-danger w-25">
+                <div class="alert alert-danger w-25 p-2">
                     @if (registerForm.get('myPhone')?.getError('required') ){
                     <p class="m-0">Phone is required</p>
                     }
@@ -85,7 +85,7 @@
                     }" id="pass" class="form-control" formControlName="password">
                 @if (registerForm.get('password')?.errors&& (registerForm.get('password')?.touched ||
                 registerForm.get('password')?.dirty)) {
-                <div class="alert alert-danger w-25">
+                <div class="alert alert-danger w-25 p-2">
                     @if (registerForm.get('password')?.getError('required') ){
                     <p class="m-0">Password is requierd</p>
                     }
@@ -102,12 +102,12 @@
                 @if(registerForm.getError('misMatch') && (registerForm.get('rePassword')?.touched ||
                 registerForm.get('rePassword')?.dirty) ){
 
-                <p class="alert alert-danger w-25">Repassword doesn’t mismatch</p>
+                <p class="alert alert-danger w-25 p-2">Repassword doesn’t mismatch</p>
 
                 }
 
             </div>
-            <button type="submit" class="btn-main d-block ms-auto ">Register
+            <button type="submit" class="btn-main d-block ms-auto text-white rounded rounded-2  " >Register
                 @if (isLoading) {
                 <span><i class="fa fa-spin fa-spinner"></i></span>
                 }

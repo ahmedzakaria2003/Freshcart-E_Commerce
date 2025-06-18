@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <!-- Auction Details Card -->
+    <div class="col-md-6">
+      <div *ngIf="auction" class="card auction-card">
+        <img [src]="auction.imageUrl" class="card-img-top auction-image" alt="Auction Image">
+        <div class="card-body">
+          <h5 class="card-title auction-title">{{ auction.name }}</h5>
+          <p class="card-text auction-detail"><strong>Category:</strong> {{ auction.category || 'N/A' }}</p>
+          <p class="card-text auction-detail"><strong>Current Bid:</strong> ${{ auction.currentBid || 0 }}</p>
+          <p class="card-text auction-detail"><strong>Location:</strong> {{ auction.location || 'N/A' }}</p>
+          <p class="card-text auction-detail"><strong>End Date:</strong> {{ auction.endTime | date:'short' }}</p>
+          <p class="card-text auction-detail"><strong>Time Left:</strong> {{ timeLeft }}</p>
+
+          <p *ngIf="winner" class="winner-message"><strong>{{ winner }}</strong></p>
+
+          <p *ngIf="isSeller" class="seller-message">You are the seller of this auction and cannot place bids.</p>
+
+          <div *ngIf="!isSeller" class="bid-actions">
+            <div *ngIf="isBidDisabled && !auctionEnded" class="not-paid-message text-danger">
+              You need to pay the required amount to start bidding.
+            </div>
+            <div class="form-group bid-input-group">
+              <input type="number" [(ngModel)]="newBid" class="form-control bid-input" placeholder="Enter your bid" [disabled]="auctionEnded">
+            </div>
+            <div class="button-group">
+              <button *ngIf="isBidDisabled && !auctionEnded" class="btn btn-primary pay-button" (click)="openPaymentPopup()">Pay the required amount</button>
+              <button class="btn btn-success bid-button" (click)="placeBid(newBid)" [disabled]="isBidDisabled || auctionEnded">Place Bid</button>
+            </div>
+
+            <div *ngIf="showPaymentPopup" class="payment-popup">
+              <div class="popup-content">
+                <h3 class="popup-title">Please pay the required amount: {{ paymentAmount }}$</h3>
+                <input type="number" [(ngModel)]="enteredAmount" placeholder="Enter the amount" class="form-control payment-input" />
+                <button class="btn btn-success pay-confirm-button" (click)="makePayment()">Pay</button>
+                <button class="btn btn-danger cancel-button" (click)="showPaymentPopup = false">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 right-column">
+      <div class="card auction-history-card">
+        <div class="bid-history-list">
+          <div class="card-body">
+            <h6 class="card-title history-title">Bidding History</h6>
+            <p *ngIf="bidHistory.length === 0" class="no-bids-message">No bids yet.</p>
+            <ul *ngIf="bidHistory.length > 0" class="list-group bid-list">
+              <li *ngFor="let bid of bidHistory" class="list-group-item bid-item">
+                <strong>{{ bid.username }}</strong>: ${{ bid.amount }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="bidHistory.length > 0" class="card max-bid-card">
+        <div class="card-body">
+          <h6 class="card-title max-bid-title">Highest Bid</h6>
+          <p class="max-bid-value"><span class="fw-bold">${{ maxBid }}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

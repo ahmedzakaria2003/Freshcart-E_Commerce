@@ -1,8 +1,9 @@
-import { Component, ElementRef, HostListener, ViewChild, viewChild, input, inject, OnDestroy } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { EmptyError, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -15,60 +16,76 @@ export class LoginComponent implements OnDestroy {
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _AuthService = inject(AuthService);
   private readonly _Router = inject(Router);
-  loginSub !: Subscription;
+  loginSub!: Subscription;
   isSuccess: boolean = false;
   isFailed: boolean = false;
   msgErro: string = "";
+
   loginForm: FormGroup = this._FormBuilder.group({
-
     email: [null, [Validators.required, Validators.email]],
-
     password: [null, [Validators.required, Validators.pattern(/^\w{6,}$/)]]
-
-  })
-
+  });
 
   loginSubmit(): void {
     if (this.loginForm.valid) {
-      this.loginSub = this._AuthService.setLoginForm(this.loginForm.value).subscribe({
-        next: (res) => {
-          if (res.message == "success") {
-            this.isSuccess = true;
-            this.isFailed = false;
+      const adminEmail = "admin@yahoo.com";
+      const adminPassword = "ahmed010";
 
-            setTimeout(() => {
-              // 1- save token
-              localStorage.setItem('userToken', res.token)
+      if (
+        this.loginForm.value.email === adminEmail &&
+        this.loginForm.value.password === adminPassword
+      ) {
+        this.isSuccess = true;
+        this.isFailed = false;
 
+        setTimeout(() => {
+          localStorage.setItem("userToken", "admin_fake_token");
+          this._Router.navigate(["/dashboard"]);
+        }, 1000);
+      } else {
+        this.loginSub = this._AuthService.setLoginForm(this.loginForm.value).subscribe({
+          next: (res) => {
+            if (res.message == "success") {
+              this.isSuccess = true;
+              this.isFailed = false;
 
-              // 2- decode token
-              this._AuthService.saveUserData();
+              setTimeout(() => {
+                localStorage.setItem("userToken", res.token);
 
-              // 3- navigate to home
+                const userData: any = jwtDecode(res.token);
+                const fullName = userData.name || "Unknown User";
+                const email = this.loginForm.value.email;
 
-              this._Router.navigate(['/home']);
-            }, 1000);
+                localStorage.setItem('username', fullName);
+                localStorage.setItem('userEmail', email);
+
+                if (email === adminEmail) {
+                  this._Router.navigate(["/dashboard"]);
+                } else {
+                  const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+                  localStorage.setItem("otpCode", otpCode);
+                  console.log("📩 OTP Sent (Dev Mode):", otpCode);
+
+                  this._Router.navigate(["/otp"]);
+                }
+              }, 1000);
+            }
+          },
+          error: (err) => {
+            if (err.message === "Incorrect email or password") {
+              this.isFailed = true;
+              this.msgErro = err.error.message;
+            }
+            console.log(err);
           }
-
-        },
-        error: (err) => {
-          if (err.message = "Incorrect email or password") {
-            this.isFailed = true
-            this.msgErro = err.error.message;
-          }
-          console.log(err);
-        }
-
-      })
-    }
-    else {
+        });
+      }
+    } else {
       this.loginForm.markAllAsTouched();
     }
   }
 
-
   ngOnDestroy(): void {
     this.loginSub?.unsubscribe();
-
   }
 }

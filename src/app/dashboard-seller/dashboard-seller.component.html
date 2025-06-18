@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <h2 class="mb-4">📦 Post Auction</h2>
+
+  <form [formGroup]="auctionForm" (ngSubmit)="isEditing ? updateAuction() : createAuction()">
+    <div class="row g-3">
+      <!-- Name -->
+      <div class="col-12 col-md-6">
+        <label for="auctionName" class="form-label">Auction Name:</label>
+        <input type="text" class="form-control" id="auctionName" formControlName="name" />
+        <div *ngIf="auctionForm.get('name')?.touched && auctionForm.get('name')?.invalid" class="text-danger mt-1">
+          <div *ngIf="auctionForm.get('name')?.errors?.['required']">Name is required.</div>
+          <div *ngIf="auctionForm.get('name')?.errors?.['minlength']">Minimum 3 characters required.</div>
+          <div *ngIf="auctionForm.get('name')?.errors?.['maxlength']">Maximum 50 characters allowed.</div>
+          <div *ngIf="auctionForm.get('name')?.errors?.['pattern']">Only letters and spaces are allowed.</div>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="col-12 col-md-6">
+        <label for="category" class="form-label">Category:</label>
+        <input type="text" class="form-control" id="category" formControlName="category" />
+        <div *ngIf="auctionForm.get('category')?.touched && auctionForm.get('category')?.invalid" class="text-danger mt-1">
+          Category is required.
+        </div>
+      </div>
+
+      <!-- Starting Bid -->
+      <div class="col-12 col-md-6">
+        <label for="startingBid" class="form-label">Starting Bid:</label>
+        <input type="number" class="form-control" id="startingBid" formControlName="startingBid" [disabled]="isCriticalFieldsDisabled" />
+        <div *ngIf="auctionForm.get('startingBid')?.touched && auctionForm.get('startingBid')?.invalid" class="text-danger mt-1">
+          <div *ngIf="auctionForm.get('startingBid')?.errors?.['required']">Starting bid is required.</div>
+          <div *ngIf="auctionForm.get('startingBid')?.errors?.['min']">Starting bid must be greater than 0.</div>
+        </div>
+        <div *ngIf="isCriticalFieldsDisabled" class="text-warning">
+          You cannot change the starting bid after the auction has been created.
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="col-12 col-md-6">
+        <label for="image" class="form-label">Image:</label>
+        <input type="file" class="form-control" id="image" (change)="onImageSelected($event)" accept="image/*" />
+        <div *ngIf="!imagePreview && auctionForm.get('imageUrl')?.touched" class="text-danger mt-1">
+          Image is required.
+        </div>
+        <div *ngIf="imagePreview" class="mt-2">
+          <img [src]="imagePreview" alt="Preview" width="150" class="rounded border" />
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="col-12 col-md-6">
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" class="form-control" id="location" formControlName="location" />
+        <div *ngIf="auctionForm.get('location')?.touched && auctionForm.get('location')?.invalid" class="text-danger mt-1">
+          <div *ngIf="auctionForm.get('location')?.errors?.['required']">Location is required.</div>
+          <div *ngIf="auctionForm.get('location')?.errors?.['minlength']">Minimum 3 characters required.</div>
+          <div *ngIf="auctionForm.get('location')?.errors?.['pattern']">Invalid characters in location.</div>
+        </div>
+      </div>
+
+      <!-- End Time -->
+      <div class="col-12 col-md-6">
+        <label for="endTime" class="form-label">Auction End Date:</label>
+        <input
+          type="datetime-local"
+          class="form-control"
+          id="endTime"
+          formControlName="endTime"
+          [min]="minDateTime"
+          [disabled]="isCriticalFieldsDisabled"
+          [ngClass]="{ 'is-invalid': auctionForm.get('endTime')?.touched && auctionForm.get('endTime')?.invalid }"
+        />
+        <div *ngIf="auctionForm.get('endTime')?.touched && auctionForm.get('endTime')?.invalid" class="text-danger mt-1">
+          <div *ngIf="auctionForm.get('endTime')?.errors?.['required']">End date is required.</div>
+          <div *ngIf="auctionForm.get('endTime')?.errors?.['pastDate']">End time must be in the future.</div>
+        </div>
+        <div *ngIf="isCriticalFieldsDisabled" class="text-warning">
+          You cannot change the end time after the auction has been created.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 col-md-6">
+        <button type="submit" class="btn btn-primary w-100">{{ isEditing ? "Update" : "Add" }}</button>
+      </div>
+      <div class="col-12 col-md-6" *ngIf="isEditing">
+        <button type="button" class="btn btn-secondary w-100 mt-3 mt-md-0" (click)="isEditing = false; isCriticalFieldsDisabled = false; auctionForm.reset(); imagePreview = null">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Auction Table -->
+  <div class="table-responsive mt-4">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Current Price</th>
+          <th>Location</th>
+          <th>End Date</th>
+          <th>Status</th>
+          <th>Winner</th>
+          <th>Winning Bid</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let auction of auctionn; let i = index; trackBy: trackById" [ngClass]="{'closed-auction': getAuctionStatus(auction) === 'Closed'}">
+          <td>{{ i + 1 }}</td>
+          <td><img [src]="auction.imageUrl" alt="Image" class="auction-image" /></td>
+          <td>{{ auction.name }}</td>
+          <td>{{ auction.category }}</td>
+          <td>${{ auction.currentBid }}</td>
+          <td>{{ auction.location }}</td>
+          <td>{{ auction.endTime | date: 'short' }}</td>
+          <td>{{ getAuctionStatus(auction) }}</td>
+          <td>{{ getWinner(auction) }}</td>
+          <td>{{ getWinningBid(auction) }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" (click)="editAuction(auction)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteAuction(auction.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

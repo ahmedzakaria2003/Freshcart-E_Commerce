@@ -1,0 +1,104 @@
+<div class="container">
+  <h2>📊 Seller Auction Report</h2>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h4><i class="fa fa-gavel"></i> Total Auctions</h4>
+      <p>{{ totalAuctions }}</p>
+    </div>
+    <div class="stat-card">
+      <h4><i class="fa fa-check-circle"></i> Open Auctions</h4>
+      <p>{{ openAuctions }}</p>
+    </div>
+    <div class="stat-card">
+      <h4><i class="fa fa-times-circle"></i> Closed Auctions</h4>
+      <p>{{ closedAuctions }}</p>
+    </div>
+    <div class="stat-card">
+      <h4><i class="fa fa-list"></i> Total Bids</h4>
+      <p>{{ totalBids }}</p>
+    </div>
+    <div class="stat-card">
+      <h4><i class="fa fa-trophy"></i> Highest Bid</h4>
+      <p>
+        {{ highestBidAuction?.name || 'N/A' }}<br>
+        <span *ngIf="highestBidAuction?.currentBid">(${{ highestBidAuction.currentBid }})</span>
+      </p>
+    </div>
+    <div class="stat-card">
+      <h4><i class="fa fa-users"></i> Most Active Auction</h4>
+      <p>
+        {{ mostActiveAuction?.name || 'N/A' }}<br>
+        <span *ngIf="mostActiveAuction?.bids?.length">
+          ({{ mostActiveAuction.bids.length }} Bids)
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Auction Table -->
+  <table class="table mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Auction Name</th>
+        <th>Category</th>
+        <th>Total Bids</th>
+        <th>Highest Bid</th>
+        <th>Status</th>
+        <th>Winner</th>
+        <th>Final Amount</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let auction of auctions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ auction.name }}</td>
+        <td>{{ auction.category }}</td>
+        <td>{{ auction.bids?.length || 0 }}</td>
+        <td>${{ auction.currentBid }}</td>
+        <td>{{ getAuctionStatus(auction) }}</td>
+        <td>{{ auction.winner || 'No winner' }}</td>
+        <td>${{ auction.winnerAmount || 'N/A' }}</td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="viewAuctionDetails(auction)">
+            <i class="fa fa-eye"></i> View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary mt-3" (click)="printReport()">🖨️ Print Report</button>
+</div>
+
+<!-- Auction Details Modal -->
+<div class="modal" *ngIf="selectedAuction" id="auctionDetailsModal">
+  <div class="modal-content">
+    <h3>📝 Auction Details</h3>
+    <p><strong>Auction Name:</strong> {{ selectedAuction.name }}</p>
+    <p><strong>Category:</strong> {{ selectedAuction.category }}</p>
+    <p><strong>Starting Bid:</strong> ${{ selectedAuction.startingBid }}</p>
+    <p><strong>Current Bid:</strong> ${{ selectedAuction.currentBid }}</p>
+    <p><strong>Location:</strong> {{ selectedAuction.location }}</p>
+    <p><strong>Status:</strong> {{ getAuctionStatus(selectedAuction) }}</p>
+    <p><strong>End Date:</strong> {{ selectedAuction.endTime | date: 'short' }}</p>
+    <p><strong>Winner:</strong> {{ selectedAuction.winner || 'No winner yet' }}</p>
+    <p><strong>Highest Bid:</strong> ${{ selectedAuction.winnerAmount || 'N/A' }}</p>
+
+    <!-- Bid History -->
+    <div *ngIf="selectedAuction.bids && selectedAuction.bids.length">
+      <h4>📜 Bid History</h4>
+      <ul>
+        <li *ngFor="let bid of selectedAuction.bids">
+          <strong>{{ bid.username }}:</strong> ${{ bid.amount }} ({{ bid.date | date: 'short' }})
+        </li>
+      </ul>
+    </div>
+    
+    <button class="btn btn-secondary" (click)="closeDetailsModal()">Close</button>
+    <button class="btn btn-primary" (click)="printAuctionDetails()">🖨️ Print Details</button>
+  </div>
+</div>

@@ -1,14 +1,322 @@
-h2{
-        font-family: Georgia, 'Times New Roman', Times, serif;
-    }
+/* Categories Section Styles */
+.categories-content {
+    margin-top: 50px;
+  }
+  .categories {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .categories img {
+    width: 150px;
+    border-radius: 50%;
+  }
+  .categories p {
+    text-align: center;
+  }
+  /* Selling Section Styles */
+  .selling {
+    background-color: var(--dark-color);
+    padding: 20px;
+    border-radius: 10px;
+    color: var(--background-color);
+    margin-top: 40px;
+    width: 100%;
+   
+  }
+  .selling .btn {
+    color: var(--background-color);
+    background-color: var(--accent-color);
+    border-radius: 0px;
+    padding: 10px;
+  }
+  .selling h3 {
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0;
+  }
+  /* Opening Auction Styles */
+  .auctions {
+    margin-top: 50px;
+  }
+  .auctions .auction-items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .auctions .category-title {
+    margin-bottom: 20px;
+  }
+  .auctions .auction-items .auction-item {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: relative;
+    transition: transform .5s ease-out;
+  }
+  .auctions .auction-items .auction-item:hover {
+    transform: scale(1.02);
+  }
+  .auctions img {
+    width: 250px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+  }
+  .auction-info {
+    padding: 10px;
+  }
+  .auction-time-out {
+    position: absolute;
+    top: 201px;
+    padding: 7px;
+    background-color: var(--accent-color);
+    border-top-right-radius: 5px;
+    color: var(--background-color);
+    width: 70%;
+  }
+   .fa-cart-shopping{
+    color: var(--accent-color);
+    margin-right: 5px;
+  }
+  i:hover{
+    cursor: pointer;
+  }
+  .category-name {
+    color: var(--dark-color);
+    margin-top: 0px;
+  }
+  .auctions .item-location {
+    color: gray;
+  }
+  .auctions .auction-end-date {
+    color: var(--dark-color);
+  }
+  .item-description {
+    display: flex;
+    justify-content: space-between;
+  }
+  .item-price {
+    color: var(--accent-color);
+  }
+  /* Top Auctions Styles */
+  .top-auctions-content {
+    margin: 50px 0px;
+    background-color: #fff;
+    padding: 10px 0px;
+  }
+ .top-auctions-content .category-title {
+    margin-bottom: 20px;
+  }
+  .top-auctions {
+    display: flex;
+    justify-content: space-between;
+  }
+  .top-auctions img {
+    border-radius: 10px;
+    width: 550px;
+  }
+  .top-auction {
+    position: relative;
+    max-width: 530px;
+  }
+  .top-auction-winner {
+    background-color: var(--accent-color);
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  .top-auction-winner img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid var(--dark-color);
+    padding: 2px;
+    margin-right: 20px;
+  }
+  .winner-info {
+    display: flex;
+  }
+  .winner-name {
+    font-size: 20px;
+    color: var(--dark-color);
+  }
+  .top-auction .price {
+    color: var(--dark-color);
+    font-weight: 600;
 
-h3{
-    font-size: 1.0rem;
+  }
+
+
+  // .faq-container {
+  //   max-width: 600px;
+  //   margin: 0 auto;
+  //   padding: 20px;
+  // }
+  
+  // .faq-item {
+  //   border-bottom: 1px solid #ccc;
+  //   padding: 10px 0;
+  // }
+  
+  // .faq-question {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   cursor: pointer;
+  //   padding: 10px 0;
+  // }
+  
+  // .faq-question h3 {
+  //   margin: 0;
+  // }
+  
+  // .arrow {
+  //   transition: transform 0.3s ease;
+  // }
+  
+  // .rotate {
+  //   transform: rotate(180deg);
+  // }
+  
+  // .faq-answer {
+  //   display: none;
+  //   padding: 10px 0;
+  //   color: #555;
+  // }
+  
+  // .faq-answer.show {
+  //   display: block;
+  // }
+  
+  // h2 {
+  //   text-align: center;
+  //   margin-bottom: 20px;
+  //   color: #333;
+  // }
+  
+
+  
+  
+  
+  /* تحسين مظهر البطاقات */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.form-control {
-    box-shadow: 0 0 10px #11bd1168;
-
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.card-img-top {
+  object-fit: cover;
+  height: 200px; /* يمكنك تعديل الحجم بما يتناسب مع التصميم */
+}
 
+.card-body {
+  background-color: #f8f9fa;
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+button {
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #117a8b;
+}
+
+/* التصميم الأساسي للشات بوت */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.chatbot-toggle {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chatbot-box {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.close-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.chatbot-content {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.chatbot-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.chatbot-message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.chatbot-message.user {
+  background-color: #f0f0f0;
+  text-align: right;
+}
+
+.chatbot-message.bot {
+  background-color: #007bff;
+  color: white;
+}

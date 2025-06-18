@@ -1,5 +1,5 @@
 import { CartService } from './../../core/services/cart.service';
-import { Component, ElementRef, HostListener, inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, OnInit, Renderer2, ViewChild, Signal, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { WishlistService } from '../../core/services/wishlist.service';
@@ -19,8 +19,9 @@ export class NavBlankComponent implements OnInit {
   
 
 
-  productCountInCart: any = 0
-  wishlistCount: any = 0;
+  productCountInCart:Signal<number> = computed(() => this._CartService.countProductsInCart())
+
+  wishlistCount : Signal<number> = computed(() => this._WishlistService.countOfProductsInWishlist())
 
 
 
@@ -34,22 +35,25 @@ export class NavBlankComponent implements OnInit {
   ngOnInit(): void {
 
 
-    
-    this._CartService.countProductsInCart.subscribe({
-      next: (res) => {
+  
 
-        this.productCountInCart = res;
 
+    this._CartService.getProductsCart().subscribe({
+
+
+      next:(res)=>{
+console.log('cart items' , res.countProductsInCart);
+
+this._CartService.countProductsInCart.set(res.numOfCartItems)
 
       }
-
     })
 
-    this._WishlistService.countOfProductsInWishlist.subscribe({
-      next: (res) => {
+ 
+    this._WishlistService.getUserWishlist().subscribe({
 
-        this.wishlistCount = res
-
+      next:(res)=>{
+this._WishlistService.countOfProductsInWishlist.set(res.count)
 
       }
     })
@@ -59,6 +63,13 @@ export class NavBlankComponent implements OnInit {
   logOut(): void {
 
     this._AuthService.logOut()
+    
+      // مسح بيانات المستخدم من localStorage
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userProfile');
+      
+      // إعادة التوجيه إلى صفحة أخرى مثل صفحة تسجيل الدخول
+    }
     // console.log('logOut');
   }
 
@@ -66,4 +77,3 @@ export class NavBlankComponent implements OnInit {
 
 
 
-}

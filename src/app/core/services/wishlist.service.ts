@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
@@ -12,7 +12,7 @@ export class WishlistService {
 
 
 
-  countOfProductsInWishlist:BehaviorSubject<number>=new BehaviorSubject(0)
+  countOfProductsInWishlist:WritableSignal<number> = signal(0)
   addProductToWishlist(product_Id:string):Observable<any>
   {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/wishlist`

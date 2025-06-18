@@ -6,11 +6,12 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ChatComponent } from "../../chat/chat.component";
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [RouterLink, TextPipe],
+  imports: [RouterLink, TextPipe, ChatComponent],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss'
 })
@@ -33,7 +34,7 @@ export class WishlistComponent implements OnInit {
         this.products = res.data
         let productsId: any = this.products.map((item) => item._id)
         this.productsIdInFav = productsId
-        this._WishlistService.countOfProductsInWishlist.next(res.count)
+        this._WishlistService.countOfProductsInWishlist.set(res.count)
       },
       error: (err) => {
         console.log(err);
@@ -53,7 +54,7 @@ export class WishlistComponent implements OnInit {
     this._CartService.goToCart(id).subscribe({
       next: (res) => {
         console.log(res);
-        this._CartService.countProductsInCart.next(res.numOfCartItems);
+        this._CartService.countProductsInCart.set(res.numOfCartItems);
         this._Renderer2.removeAttribute(element,'disabled')
         this._ToastrService.success(res.message, 'Fresh cart', {
           progressBar: true,
@@ -84,7 +85,7 @@ export class WishlistComponent implements OnInit {
 
         this.productsIdInFav = res.data
         this.products = this.products.filter((item) => this.productsIdInFav.includes(item._id))
-        this._WishlistService.countOfProductsInWishlist.next(res.data.length)
+        this._WishlistService.countOfProductsInWishlist.set(res.data.length)
         this._ToastrService.error('Item deleted from your wishlist', 'Fresh cart')
 
       },

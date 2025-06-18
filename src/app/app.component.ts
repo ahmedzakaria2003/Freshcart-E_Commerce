@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgxSpinnerComponent } from 'ngx-spinner';
+import { ChatComponent } from "./chat/chat.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,FooterComponent , NgxSpinnerComponent],
+  imports: [RouterOutlet, NgxSpinnerComponent, ChatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

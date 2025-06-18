@@ -1,0 +1,67 @@
+.container {
+  margin-top: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+
+  h4 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  .modal-content {
+    background: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+
+    h3 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    button {
+      margin-right: 10px;
+    }
+  }
+}

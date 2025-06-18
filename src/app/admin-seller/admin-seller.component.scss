@@ -1,0 +1,41 @@
+.container {
+  margin-top: 20px;
+}
+
+.auction-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.closed-auction {
+  background-color: #f8d7da; /* لون خلفية خفيف للمزادات المغلقة أو المشاكل */
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    max-height: 300px;
+    min-width: 100%;
+  }
+
+  .dropdown-menu {
+    min-width: auto;
+  }
+}

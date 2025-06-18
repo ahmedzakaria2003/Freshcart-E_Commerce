@@ -1,0 +1,75 @@
+<div class="container mt-5">
+  <div class="auctions">
+    <div class="category-title">Current Auctions</div>
+  </div>
+
+  <!-- 🔍 Search & Filter -->
+  <div class="row mb-3">
+    <div class="col-md-4 mt-3">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchTerm"
+        placeholder="Search..."
+      />
+    </div>
+    <div class="col-md-4 mt-3">
+      <select class="form-select" [(ngModel)]="selectedFilter">
+        <option value="name">Name</option>
+        <option value="location">Location</option>
+        <option value="category">Category</option>
+      </select>
+    </div>
+    <div class="col-md-4 mt-3">
+      <select class="form-select" [(ngModel)]="statusFilter">
+        <option value="all">All</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <option value="endingSoon">Ending Soon</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 🔃 Sort -->
+  <div class="row mb-4">
+    <div class="col-md-6 mt-3">
+      <select class="form-select" [(ngModel)]="sortBy">
+        <option value="">Sort By</option>
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 🪧 Auction Cards -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="col" *ngFor="let auction of getFilteredAuctions()">
+      <div class="card shadow-sm h-100">
+        <img [src]="auction.imageUrl" class="card-img-top" alt="Auction Image" />
+        <div class="card-body">
+          <h5 class="card-title">{{ auction.name }}</h5>
+          <p class="card-text"><strong>Category:</strong> {{ auction.category }}</p>
+          <p class="card-text"><strong>Starting Price:</strong> {{ auction.startingBid }}</p>
+          <p class="card-text"><strong>Current Price:</strong> ${{ auction.currentBid }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ auction.location }}</p>
+          <p class="card-text"><strong>End Date:</strong> {{ auction.endTime | date: 'short' }}</p>
+
+          <p *ngIf="!isAuctionEnded(auction)" class="card-text">
+            <strong>Time Left:</strong> {{ getTimeLeft(auction.endTime) }}
+          </p>
+
+          <span *ngIf="isAuctionOpen(auction)" class="badge bg-success">Open</span>
+          <span *ngIf="isAuctionEnded(auction)" class="badge bg-danger">Closed</span>
+
+          <button
+            class="btn btn-info w-100 mt-2"
+            (click)="viewAuctionDetails(auction.id)"
+            [disabled]="isAuctionEnded(auction)">
+            View More
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <app-chat></app-chat>

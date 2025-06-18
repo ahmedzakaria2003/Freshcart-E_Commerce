@@ -1,196 +1,192 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap");
-
 :root {
-  --main-color: #0aad0a;
-  --light-color: #f0f3f2;
-  --shadow: rgba(145, 158, 171, 0.2) 0px 2px 4px -1px,
-    rgba(145, 158, 171, 0.14) 0px 4px 5px 0px,
-    rgba(145, 158, 171, 0.12) 0px 1px 10px 0px;
-  --font-family: "Encode Sans Expanded", sans-serif;
-  --rating-color: #ffc908;
+  /* Colors */
+  --btn-color: #266296; 
+  --primary-color: #45474b; 
+  --secondary-color: #585443; 
+  --accent-color: #d1a713; 
+  --background-color: #F5F5F5; 
+  --text-color: #333333; 
+  --success-color: #28A745; 
+  --warning-color: #E63946;
+  --dark-color: #1C476D;
+
+  /* Fonts */
+  --primary-font: 'Lato', sans-serif;
+  --secondary-font: 'Poppins', sans-serif;
+  --fallback-font: 'Open Sans', sans-serif;
 }
 
+html{
+  scrollbar-width: none;
+
+}
 body {
-  font-family: var(--font-family) !important;
+  font-family: var(--primary-font);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0; 
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.nav-link {
-  transition: unset !important;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--secondary-font);
 }
+
+button {
+  background: #266296;
+  font-family: var(--accent-font);
+  // border-radius: 100px;
+  border: solid 1px var(--btn-color);
+  padding: 6px 8px;
+  cursor: pointer;
+  letter-spacing: .3px;
+  font-size: 15px;
+}
+
+.success-message {
+  color: var(--success-color);
+}
+
 .active-link {
-  background-color: var(--main-color) !important;
-  color: var(--light-color) !important;
+  background-color: var(--btn-color) !important;
+  color: var(--background-color) !important;
   border-radius: 5px;
 }
-
-.rating-color {
-  color: var(--rating-color);
+.warning-message {
+  color: var(--warning-color);
 }
-.cursor-pointer {
-  cursor: pointer;
-}
-a,
-a:hover {
-  color: black;
+a {
   text-decoration: none;
 }
-
-.product {
-  border-radius: 5px;
-  border: solid 1px var(--main-color);
-  transition: box-shadow 0.5s;
-  overflow: hidden;
+li {
+  list-style: none;
+}
+.container {
+  width: 90%;
+  margin: auto;
+}
+.navbar-menu li a {
+  color: #353535;
+}
+.welcome {
+text-align: center;
+font-size: 20px;
+padding: 20px;
 }
 
-.product:hover {
-  box-shadow: 0 0 14px #11bd1168;
+.form-group {
+margin-bottom: 15px;
 }
 
-.product img {
-	transition: all 0.3s;
+.error {
+color: var(--warning-color);
+font-size: 12px;
 }
 
-
-.product:hover img{
-	scale:  1.1;
-}
-
-.product .btn-main{
-transform: translateY(120%);
-transition: .5s;
-}
-.product:hover .btn-main{
-  transform: translateY(0%);
-}
-.font-sm {
-  font-size: 12px;
-}
-.text-main {
-  color: var(--main-color);
-}
-.bg-main {
-  background-color: var(--main-color) !important;
-}
-.bg-main-light {
-  background-color: var(--light-color) !important;
-}
-.btn-main {
-  background-color: var(--main-color);
-  padding: 7px 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.5s;
-}
-.btn-main:disabled {
-  cursor: not-allowed;
-  background-color: #ccc;
-}
-.btn-main:disabled:hover {
-  background-color: #ccc;
-}
-.btn-main:hover {
-  background-color: #11bd11;
+.form-control {
+width: 100%;
+padding: 8px;
+margin: 5px 0 15px;
+box-sizing: border-box;
 }
 
 
+input {
+outline: none;
 
-.product {
-  border-radius: 5px;
-  transition: box-shadow 0.5s;
-  padding: 4px;
-  overflow: hidden;
-
-  &:hover .heart {
-    right: 15px;
-    &:hover {
-      color: red;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-  }
 }
+/*   
+.btn:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+*/
+.register-container, .login-container {
+width: 450px;
+margin: auto;
+background-color: #fff;
+padding: 40px;
+border-radius: 3px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+text-align: center;
+margin-top: 50px;
+text-transform: uppercase;
+}
+
+form .forgot {
+display: block;
+text-align: center;
+padding: 10px;
+}
+.forgot a {
+border-bottom: 1px solid #EBEDF0;
+padding: 10px;
+}
+.join {
+text-align: center;
+padding-top: 20px;
+}
+.register-form-btn, .login-form-btn {
+padding: 10px 15px;
+background-color: var(--btn-color);
+color: white;
+border-radius: 2px;
+border: none;
+cursor: pointer;
+width: 100%;
+height: 45px;
+}
+/* Home Style */
+.search-container {
+display: flex;
+border: 1px solid #b1b1b1;
+overflow: hidden;
+width: 600px; 
+z-index: 99;
+}
+.search-container input {
+border: none;
+flex: 1;
+font-size: 16px;
+outline: none;
+}
+.search-container button {
+background-color: var(--btn-color);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+color: var(--background-color);
+border: none;
+padding: 10px 30px;
+cursor: pointer;
+font-size: 16px;
+outline: none;
+}
+
+.search-container button:hover {
+background-color: var(--dark-color);
+}
+/* Categories Section Styles */
+.category-title {
+margin-top: 20px;
+font-size: 24px;
+color: var(--dark-color);
+}
+
 .heart {
-  font-size: 35px;
+  font-size: 25px;
   top: 5px;
-  right: 5px;
+  right: 0px;
   z-index: 99;
-  margin-right: 10px;
+  margin-right: 4px;
   margin-top: 10px;
-  right: -65px;
   transition: all 0.7s;
 }
 
-/* styles.css or styles.scss */
-
-/* Light mode (default) */
-:root {
-  --background-color: #ffffff;
-  --text-color: #000000;
-  --nav-background: #f8f9fa;
-  --nav-text-color: #333;
-  --link-hover-color: #007bff;
-  --badge-bg-success: #28a745;
-  --badge-bg-info: #17a2b8;
-}
-
-/* Dark mode */
-.dark-mode {
-  --background-color: #121212;
-  --text-color: #ffffff;
-  --nav-background: #333;
-  --nav-text-color: #ffffff;
-  --link-hover-color: #1e90ff;
-  --badge-bg-success: #4caf50;
-  --badge-bg-info: #03a9f4;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.navbar {
-  background-color: var(--nav-background);
-}
-
-.navbar-nav .nav-link {
-  color: var(--nav-text-color);
-}
-
-.navbar-nav .nav-link:hover {
-  color: var(--link-hover-color);
-}
-
-.badge.bg-success {
-  background-color: var(--badge-bg-success);
-}
-
-.badge.bg-info {
-  background-color: var(--badge-bg-info);
-}
-
-/* Ensure any additional components or custom styles use the CSS variables */
-/* dark-mode.scss or styles.scss */
-:root {
-  --bg-color: #fff;
-  --text-color: #000;
-  --navbar-bg-color: #f8f9fa;
-}
-
-.dark-mode {
-  --bg-color: #121212;
-  --text-color: #ffffff;
-  --navbar-bg-color: #343a40;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-.navbar {
-  background-color: var(--navbar-bg-color);
-}
+ .heart:hover{
+  color: red;
+ }
+  

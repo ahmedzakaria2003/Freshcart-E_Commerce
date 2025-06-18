@@ -8,11 +8,12 @@ import { TextPipe } from '../../core/pipes/text.pipe';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../core/services/wishlist.service';
+import { ChatComponent } from "../../chat/chat.component";
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [RouterLink, TextPipe, SearchPipe, FormsModule ],
+  imports: [RouterLink, TextPipe, SearchPipe, FormsModule, ChatComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -48,7 +49,7 @@ export class ProductComponent implements OnInit {
       next: (res) => {
 
         console.log(res);
-        this._WishlistService.countOfProductsInWishlist.next(res.count)
+        // this._WishlistService.countOfProductsInWishlist.next(res.count)
 
 
       },
@@ -59,15 +60,15 @@ export class ProductComponent implements OnInit {
       }
 
     })
-    this._CartService.getProductsCart().subscribe({
+    // this._CartService.getProductsCart().subscribe({
 
-      next: (res) => {
-        this._CartService.countProductsInCart.next(res.numOfCartItems);
+    //   next: (res) => {
+    //     this._CartService.countProductsInCart.next(res.numOfCartItems);
 
-      }
+    //   }
 
 
-    })
+    // })
   }
 
 
@@ -77,9 +78,9 @@ export class ProductComponent implements OnInit {
     this._CartService.goToCart(id).subscribe({
       next: (res) => {
         console.log(res);
-        this._CartService.countProductsInCart.next(res.numOfCartItems);
+        this._CartService.countProductsInCart.set(res.numOfCartItems);
         this._Renderer2.removeAttribute(element,'disabled')
-        this._ToastrService.success(res.message, 'Fresh cart', {
+        this._ToastrService.success(res.message, 'Auction Net', {
           progressBar: true,
           progressAnimation: 'increasing'
         })
@@ -105,8 +106,8 @@ export class ProductComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.productsIdInFav = res.data
-        this._WishlistService.countOfProductsInWishlist.next(res.data.length)
-        this._ToastrService.info(res.message, 'Fresh cart', {
+        this._WishlistService.countOfProductsInWishlist.set(res.data.length)
+        this._ToastrService.info(res.message, 'Auction Net', {
           progressBar: true,
           progressAnimation: 'increasing'
         })
@@ -128,7 +129,7 @@ export class ProductComponent implements OnInit {
     this._WishlistService.removeProductFromWishlist(productId).subscribe({
       next: (res) => {
         this.productsIdInFav = res.data
-        this._WishlistService.countOfProductsInWishlist.next(res.data.length)
+        this._WishlistService.countOfProductsInWishlist.set(res.data.length)
 
       },
       error: (err) => {

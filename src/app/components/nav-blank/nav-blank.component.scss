@@ -1,35 +1,44 @@
-
-.nav-item:hover a{
-  color: #0aad0a; 
-
+.nav-item:hover a {
+  color: var(--accent-color);
 }
 
- .nav-item-cart:hover a{
-  color: #0aad0a; 
-cursor: pointer;
-
-}
-.nav-item{
-  transition: .5s;
+.nav-item-cart:hover a {
+  color: var(--accent-color);
+  cursor: pointer;
 }
 
-.nav-item-cart{
-  transition: .5s;
-}
-.badge{
-
-  font-size: 16px;
-}
-
-
-.navbar {
-  padding-left: .4rem; 
-  padding-right: .4rem;
+.nav-item {
+  font-size:19px ;
+  transition: 0.5s;
 }
 
 .nav-item-cart {
-  margin-left: .3rem; 
-  margin-right: .3rem; 
+  transition: 0.5s;
 }
 
+.badge {
+  font-size: 16px;
+}
 
+.navbar {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+.nav-item-cart {
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+
+.gavel {
+
+
+   color: #87A1B0;
+
+  font-weight: 900;
+}
+
+/* إضافة جديدة عشان نضمن إن الأيقونات متسقة */
+.nav-item-cart i {
+  margin-right: 0.5rem; /* مسافة بين الأيقونة والنص */
+}

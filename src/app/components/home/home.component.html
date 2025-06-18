@@ -1,120 +1,97 @@
-<!-- main slider -->
-<section class="mt-3">
-
-
-
+<section class="mt-5">
   <div class="row g-0 mt-3">
-    <div class="col-md-10">
-
+    <div class="col-md-12">
       <div>
-        <owl-carousel-o [options]="customOptionsMain">
+        <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide>
-            <img src="./assets/images/slider-image-3.jpeg" alt="" height="400px" class="w-100">
-          </ng-template>
-
-          <ng-template carouselSlide>
-            <img src="../../../assets/images/slider-image-1.jpeg" alt="" height="400px" class="w-100">
+            <img src="../../../assets/images/sh1.jpg" alt="" height="480px" class="w-100">
           </ng-template>
           <ng-template carouselSlide>
-            <img src="./assets/images/slider-image-2.jpeg" alt="" height="400px" class="w-100">
+            <img src="../../../assets/images/sh2.jpg" alt="" height="480px" class="w-100">
           </ng-template>
           <ng-template carouselSlide>
-            <img src="../../../assets/images/slider-2.jpeg" alt="" height="400px" class="w-100">
+            <img src="../../../assets/images/sh3 (3).jpg" alt="" height="480px" class="w-100">
           </ng-template>
-
+          <ng-template carouselSlide>
+            <img src="../../../assets/images/sh3 (1).jpg" alt="" height="480px" class="w-100">
+          </ng-template>
         </owl-carousel-o>
-
-
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div>
-        <img src="./../assets/images/grocery-banner.png" alt="" height="200px" class="w-100">
-        <img src="./../assets/images/grocery-banner-2.jpeg" alt="" height="200px" class="w-100">
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
 </section>
 
+<div class="selling mt-5">
+  <h3>Start Selling Today</h3>
+  <p>Cutting-edge auction platform. Competitive pricing. Unlock endless opportunities and watch your auction business thrive with just a few simple steps.</p>
+  <button class="btn rounded rounded-2" [routerLink]="['/seller']">Sell on Auction Net</button>
+</div>
+<main class="container">
+  <div class="auctions">
+    <div class="category-title fs-2">Sellers Auctions</div>
+  </div>
 
-<!-- categories -->
-<section class="my-5 ">
-  <h2>Popular Categories:</h2>
+  <!-- 🔍 Search & Filter -->
+  <div class="row mb-3">
+    <div class="col-md-4 mt-3">
+      <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search..." />
+    </div>
+    <div class="col-md-4 mt-3">
+      <select class="form-select" [(ngModel)]="selectedFilter">
+        <option value="name">Name</option>
+        <option value="location">Location</option>
+        <option value="category">Category</option>
+      </select>
+    </div>
+    <div class="col-md-4 mt-3">
+      <select class="form-select" [(ngModel)]="statusFilter">
+        <option value="all">All</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <option value="endingSoon">Ending Soon</option>
+      </select>
+    </div>
+  </div>
 
-  <owl-carousel-o [options]="customOptions">
+  <!-- 🔃 Sort -->
+  <div class="row mb-4">
+    <div class="col-md-6 mt-3">
+      <select class="form-select" [(ngModel)]="sortBy">
+        <option value="">Sort By</option>
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+      </select>
+    </div>
+  </div>
 
-    @for (cat of categoryList; track cat._id) {
-    <ng-template carouselSlide="">
-      <div>
-        <!-- content -->
-        <img [src]="cat.image" [alt]="cat.name" height="250px" class="w-100">
-
-        <h3 class="text-main ">{{cat.name}}</h3>
-
-
-      </div>
-    </ng-template>
-    }
-
-  </owl-carousel-o>
-
-
-</section>
-
-<!-- products -->
-<section>
-
-  <input [(ngModel)]="text" type="search" placeholder="Search by name....." class="form-control mx-auto p-2 mb-4 w-50 "
-    id="">
-  <h2 class="mb-2">Popular Products:</h2>
-
-  <div class="row g-3 ">
-    @for (product of productList.slice(0,12)|search:text ; track product.id ) {
-    <div class="col-md-2   ">
-      <div class="product position-relative p-2 rounded ">
-        @if (!productsIdInFav.includes(product._id)) {
-        <i class="fa-solid fa-heart-crack heart position-absolute" (click)="getWishlist(product._id)"></i>
-
-        }
-        @else {
-        <i class="fa-solid fa-heart heart position-absolute" (click)="removeProductFromFav(product._id)"></i>
-
-        }
-
-
-        <div [routerLink]="['/details', product.id]">
-          <div>
-            <img [src]="product.imageCover" [alt]="product.title" class="w-100 rounded object-fit-fill ">
-            <h3 class="small text-main mt-3">{{product.category.name}}</h3>
-            <h4 class="h6">{{product.title |text:2}}</h4>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>{{product.price}} EGP</span>
-            <div>
-
-              @for (num of [1,2,3,4,5].slice(0, product.ratingsAverage) ; track $index) {
-
-              <span><i class="fa fa-star  rating-color"></i></span>
-              }
-              @if (product.ratingsAverage% 1 !== 0 ) {
-              <i class="fa-regular fa-star-half-stroke rating-color stars-landing"></i>
-              }
-              <span class="text-muted">{{product.ratingsAverage}}</span>
-
-            </div>
-          </div>
+  <!-- 🪧 Auction Cards -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="col" *ngFor="let auction of getFilteredAuctions()">
+      <div class="card shadow-sm h-100">
+        <img [src]="auction.imageUrl" class="card-img-top" alt="Auction Image" />
+        <div class="card-body">
+          <h5 class="card-title">{{ auction.name }}</h5>
+          <p class="card-text"><strong>Category:</strong> {{ auction.category }}</p>
+          <p class="card-text"><strong>Starting Price:</strong> {{ auction.startingBid }}</p>
+          <p class="card-text"><strong>Current Price:</strong> ${{ auction.currentBid }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ auction.location }}</p>
+          <p class="card-text"><strong>End Date:</strong> {{ auction.endTime | date: 'short' }}</p>
+          <p *ngIf="!isAuctionEnded(auction)" class="card-text">
+            <strong>Time Left:</strong> {{ getTimeLeft(auction.endTime) }}
+          </p>
+          <span *ngIf="isAuctionOpen(auction)" class="badge bg-success">Open</span>
+          <span *ngIf="isAuctionEnded(auction)" class="badge bg-danger">Closed</span>
+          <button class="btn btn-info w-100" (click)="viewAuctionDetails(auction.id)" [disabled]="isAuctionEnded(auction)">
+            View More
+          </button>
         </div>
-        <button class="btn-main w-100" #element (click)="getCart(product.id , element)">Add to cart</button>
       </div>
     </div>
-    }
   </div>
+</main>
 
-</section>
+
+  <app-chat></app-chat>
+
+
+

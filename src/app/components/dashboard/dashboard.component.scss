@@ -1,0 +1,214 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* ✅ Sidebar */
+  .sidebar {
+    width: 250px;
+    background: #222;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .sidebar ul li a i {
+    margin-right: 10px;
+  }
+  
+  .sidebar ul li a:hover {
+    background: #444;
+  }
+  
+  /* ✅ Main Content */
+  .main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  header {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(15deg); }
+    80% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.wave-hand {
+    display: inline-block;
+    animation: wave 1.5s infinite ease-in-out;
+    transform-origin: 70% 70%;
+}
+.logout {
+  background-color: #f44336; /* Red background for logout */
+  color: white; /* White text */
+  padding: 10px 20px; /* Space inside the button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor pointer for better UX */
+  font-size: 16px; /* Adjust font size */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout:hover {
+  background-color: #d32f2f; /* Darker red when hovered */
+}
+
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ✅ Sidebar */
+.sidebar {
+    width: 250px;
+    background: #222;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul li a:hover {
+    background: #444;
+}
+
+.sidebar ul li a.active {
+    background: #007bff;
+    color: white;
+}
+
+.sidebar ul li button.logout {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    // width: 100%;
+    transition: background 0.3s;
+}
+
+.sidebar ul li button.logout:hover {
+    background-color: #c82333;
+}
+
+/* ✅ Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Animation for Wave Hand */
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(15deg); }
+    80% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.wave-hand {
+    display: inline-block;
+    animation: wave 1.5s infinite ease-in-out;
+    transform-origin: 70% 70%;
+}
+
+/* Custom Button Style for Toggle */
+.btn-custom-toggle {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-toggle:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+}
+
+.btn-custom-toggle:active {
+    background-color: #003d7a;
+    transform: scale(0.95);
+}

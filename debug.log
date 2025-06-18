@@ -1,0 +1,2 @@
+[0126/190101.591:ERROR:filesystem_win.cc(128)] GetFileAttributes C:\Users\Zeko\AppData\Local\BraveSoftware\Brave-Browser\User Data\Crashpad\attachments\b3171d77-4c4b-4bb2-a7b6-6e19dddb84cd: The system cannot find the file specified. (0x2)
+[0126/190101.596:ERROR:filesystem_win.cc(128)] GetFileAttributes C:\Users\Zeko\AppData\Local\BraveSoftware\Brave-Browser\User Data\Crashpad\attachments\b3171d77-4c4b-4bb2-a7b6-6e19dddb84cd: The system cannot find the file specified. (0x2)

@@ -1,0 +1,20 @@
+<div class="otp-container">
+  <h2 class="text-center">Enter OTP</h2>
+  <p class="text-center">Please check your email ({{ email }}) for the OTP.</p>
+
+  <form (ngSubmit)="verifyOTP()" [formGroup]="otpForm" class="otp-form">
+    <div class="form-group">
+      <input type="text" formControlName="otp" maxlength="6" class="form-control text-center" placeholder="Enter 6-digit code" />
+    </div>
+
+    <div *ngIf="otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched" class="alert alert-danger">
+      OTP is required and must be 6 digits.
+    </div>
+
+    <div *ngIf="isFailed" class="alert alert-danger text-center">
+      Invalid OTP or email not sent. Please try again or contact support.
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="otpForm.invalid">Verify</button>
+  </form>
+</div>

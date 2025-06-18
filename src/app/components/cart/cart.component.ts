@@ -4,11 +4,12 @@ import { Icart } from '../../core/interfaces/icart';
 import { CurrencyPipe } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ChatComponent } from "../../chat/chat.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CurrencyPipe,RouterLink,],
+  imports: [CurrencyPipe, RouterLink, ChatComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -18,12 +19,19 @@ private readonly _ToastrService = inject(ToastrService);
 private readonly _Router = inject(Router);
 private readonly _Renderer2 = inject(Renderer2);
 
+wonAuctions: any[] = [];
 
+constructor(private cartService: CartService) {}
 
 
 
 cartDetails: Icart | null  = null ;
 ngOnInit():void{
+
+  
+  // this.cartService.getWonAuctions().subscribe((data) => {
+  //   this.wonAuctions = data;
+  // });
 
 this._CartService.getProductsCart().subscribe({
 
@@ -48,7 +56,7 @@ this._CartService.removeSpecificCartItem(id).subscribe({
 next:(res)=>{
 console.log(res);
 this._Renderer2.removeAttribute(element,'disabled')
-this._CartService.countProductsInCart.next(res.numOfCartItems);
+this._CartService.countProductsInCart.set(res.numOfCartItems);
 this._ToastrService.error('item deleted');
 this.cartDetails = res.data;
 
@@ -98,7 +106,7 @@ next:(res)=>{
 this._Renderer2.removeAttribute(element,'disabled')
 
   this.cartDetails = null
-  this._CartService.countProductsInCart.next(0);
+  this._CartService.countProductsInCart.set(0);
   }
 
 },

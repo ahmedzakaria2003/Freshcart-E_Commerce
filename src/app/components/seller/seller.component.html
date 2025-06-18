@@ -1,0 +1,58 @@
+<div class="dashboard-container">
+    <!-- ✅ Sidebar -->
+    <div class="sidebar d-none d-md-block">
+        <h2>Dashboard</h2>
+        <ul>
+            <li>
+                <a routerLink="/seller/dash*seller" routerLinkActive="active">
+                    <i class="bi bi-house-door"></i> Post Auction
+                </a>
+            </li>
+              <li>
+                <a routerLink="/seller/sellerreport" routerLinkActive="active">
+                    <i class="bi bi-house-door"></i> SellerReports
+                </a>
+            </li>
+            <li>
+                <button class="btn-main rounded-3 text-white p-3 m-2 w-75" [routerLink]="['/home']">Home</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ✅ Offcanvas for Mobile -->
+    <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sidebarMobile" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="sidebarLabel">Dashboard</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/seller/dash*seller" routerLinkActive="active">
+                        <i class="bi bi-house-door"></i> Post Auction
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn-main rounded-3 text-white p-3 m-2 w-75" [routerLink]="['/home']">Home</button>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <!-- ✅ Main content -->
+    <div class="main-content">
+        <header class="bg-primary p-3 d-flex justify-content-between align-items-center text-white">
+            <button class="btn btn-custom-toggle d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
+                <i class="bi bi-list"></i> Dashboard
+            </button>
+            <h2>Welcome, Seller <span class="wave-hand">👋</span></h2>
+        </header>
+
+        <div class="content p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+  <app-chat></app-chat>
+

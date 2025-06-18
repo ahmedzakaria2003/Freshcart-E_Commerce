@@ -5,3 +5,213 @@ section{
 .product:hover img{
 	scale: none;
 }
+
+
+/* Centering the Team Members title */
+.team-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left; /* Align to the left */
+    color: #333;
+    margin-bottom: 40px; /* Adds space below the title */
+    position: relative;
+    display: inline-block; /* Ensures the title is left aligned */
+    text-transform: capitalize; /* Capitalizes the first letter of each word */
+    padding-left: 20px; /* Adds some space from the left */
+  }
+  
+  /* Styling the team container to have multiple rows of cards */
+  .team-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allows cards to wrap onto new lines if there are too many to fit in one row */
+    justify-content: flex-start; /* Align cards to the left */
+    gap: 10px; /* Adds space between the cards */
+    margin: 20px auto; /* Centers the whole container in the middle of the page */
+    max-width: 1200px; /* Limits the maximum width of the container */
+  }
+  
+  /* Adjusting the card design */
+  .team-card {
+    width: 250px; /* Fixed width for each card */
+    height: 350px; /* Fixed height for each card */
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+    animation: slideInUp 1.5s ease-out;
+    margin-bottom: 20px; /* Adds space below the cards */
+  }
+  
+  /* Card hover effect */
+  .team-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Inner content of each card */
+  .card-inner {
+    position: relative;
+    height: 100%;
+  }
+  
+  /* Styling the team member images */
+  .team-image {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+  }
+  
+  /* Team member info at the bottom of the card */
+  .team-info {
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  /* On hover, increase opacity of the background */
+  .team-card:hover .team-info {
+    background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+  }
+  
+  /* Styling the text in the info section */
+  .team-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .role {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .bio {
+    font-size: 1rem;
+  }
+  
+  /* Animation for fade-in effect */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Animation for sliding in */
+  @keyframes slideInUp {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+
+  /* عرض الكاردات بشكل مرن */
+.team-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap into multiple rows */
+    justify-content: flex-start; /* Align cards to the left */
+    gap: 20px; /* Space between the cards */
+    margin: 20px auto;
+    max-width: 100%; /* Make container width fluid */
+    padding: 0 10px; /* Adding some padding */
+  }
+  
+  /* تعديل عرض الكاردات ليظهر أربعة في كل صف */
+  .team-card {
+    width: calc(25% - 20px); /* 4 كاردات في كل صف مع بعض المسافة بين الكاردات */
+    height: 350px; /* Fixed height for each card */
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+    animation: slideInUp 1.5s ease-out;
+  }
+  
+  .team-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .team-image {
+    width: 50%;
+    height: 10%;
+    object-fit: contain;
+  }
+  
+  .team-info {
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6); /* Dark background for text readability */
+    color: white;
+    transition: background 0.3s ease;
+  }
+  
+  .team-card:hover .team-info {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .team-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .role {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .bio {
+    font-size: 1rem;
+  }
+  
+  /* Animation for the fade-in effect */
+  @keyframes slideInUp {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* For responsiveness on smaller screens */
+  @media (max-width: 1200px) {
+    .team-card {
+      width: calc(33.33% - 20px); /* 3 cards on larger tablets and smaller screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .team-card {
+      width: calc(50% - 20px); /* 2 cards on medium screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .team-card {
+      width: 100%; /* 1 card per row on small mobile screens */
+    }
+  }
+  

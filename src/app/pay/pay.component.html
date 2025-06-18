@@ -1,0 +1,126 @@
+<div class="payment-wrapper">
+  <div class="payment-card">
+    <div class="payment-summary">
+      <!-- <p class="amount">EGP {{ totalAmount }}.00</p> -->
+    </div>
+    <div class="payment-form">
+      <h3>Pay with card</h3>
+      <form [formGroup]="paymentForm" (ngSubmit)="confirmPayment()">
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="email@example.com"
+            [class.invalid]="paymentForm.get('email')?.touched && paymentForm.get('email')?.invalid"
+          />
+          <div *ngIf="paymentForm.get('email')?.touched && paymentForm.get('email')?.invalid" class="error">
+            <span *ngIf="paymentForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="paymentForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <!-- Card Information -->
+        <div class="form-group">
+          <label for="cardNumber">Card information</label>
+          <div class="card-input">
+            <input
+              type="text"
+              id="cardNumber"
+              formControlName="cardNumber"
+              placeholder="1234 1234 1234 1234"
+              maxlength="19" 
+              (input)="formatCardNumber($event)"
+              [class.invalid]="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid"
+            />
+            <div class="card-icons">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/American_Express_logo_%28transparent%29.png" alt="Amex" />
+            </div>
+          </div>
+          <div *ngIf="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid" class="error">
+            <span *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card number is required</span>
+            <span *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Card number must be 16 digits</span>
+          </div>
+
+          <div class="card-details">
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="expiryDate"
+                placeholder="MM/YY"
+                maxlength="5"
+                (input)="formatExpiryDate($event)"
+                [class.invalid]="paymentForm.get('expiryDate')?.touched && paymentForm.get('expiryDate')?.invalid"
+              />
+              <div *ngIf="paymentForm.get('expiryDate')?.touched && paymentForm.get('expiryDate')?.invalid" class="error">
+                <span *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry date is required</span>
+                <span *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Format must be MM/YY</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="cvc"
+                placeholder="CVC"
+                maxlength="3"
+                [class.invalid]="paymentForm.get('cvc')?.touched && paymentForm.get('cvc')?.invalid"
+              />
+              <div *ngIf="paymentForm.get('cvc')?.touched && paymentForm.get('cvc')?.invalid" class="error">
+                <span *ngIf="paymentForm.get('cvc')?.errors?.['required']">CVC is required</span>
+                <span *ngIf="paymentForm.get('cvc')?.errors?.['pattern']">CVC must be 3 digits</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cardholder Name -->
+        <div class="form-group">
+          <label for="cardholderName">Cardholder name</label>
+          <input
+            type="text"
+            id="cardholderName"
+            formControlName="cardholderName"
+            placeholder="Full name on card"
+            [class.invalid]="paymentForm.get('cardholderName')?.touched && paymentForm.get('cardholderName')?.invalid"
+          />
+          <div *ngIf="paymentForm.get('cardholderName')?.touched && paymentForm.get('cardholderName')?.invalid" class="error">
+            <span *ngIf="paymentForm.get('cardholderName')?.errors?.['required']">Cardholder name is required</span>
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="form-group">
+          <label for="country">Country or region</label>
+          <select id="country" formControlName="country">
+            <option value="Egypt">Egypt</option>
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+          </select>
+        </div>
+
+        <!-- Save Info Checkbox -->
+        <div class="form-group checkbox">
+          <input type="checkbox" id="saveInfo" formControlName="saveInfo" />
+          <label for="saveInfo">
+            Securely save my information for 1-click checkout<br />
+            Pay faster on E-Commerce App everywhere Link is accepted.
+          </label>
+        </div>
+
+        <!-- Pay Button -->
+        <button type="submit" class="pay-btn">Pay</button>
+
+        <!-- Footer -->
+        <div class="footer">
+          <span>Powered by Stripe</span>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

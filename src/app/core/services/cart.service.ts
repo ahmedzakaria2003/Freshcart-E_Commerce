@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, OnInit, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, OnInit, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
@@ -10,12 +10,18 @@ import { isPlatformBrowser } from '@angular/common';
 export class CartService  {
 
 
-  countProductsInCart:BehaviorSubject<number> = new BehaviorSubject(0)
+  countProductsInCart:WritableSignal<number> = signal(0);
   constructor(private _HttpClient: HttpClient) { }
 
  
 
-  // logic api
+  // getWonAuctions(): Observable<any> {
+  //   const wonAuctions = JSON.parse(localStorage.getItem('wonAuctions') || '[]');
+  //   return new Observable(observer => {
+  //     observer.next(wonAuctions);
+  //     observer.complete();
+  //   });
+  // }
 
 
 

@@ -1,0 +1,64 @@
+
+
+<h2 class="section-title mb-4">Your Won Auctions</h2>
+<div class="auctions-container">
+  <div *ngFor="let auction of wonAuctionsDetails" class="auction-card">
+    <img [src]="auction.imageUrl || 'assets/placeholder-image.jpg'" alt="{{ auction.title }}" class="auction-image" />
+    <div class="auction-details">
+      <h3>{{ auction.title }}</h3>
+      <p><i class="fas fa-money-bill-wave"></i> <strong>Won for:</strong> ${{ auction.winnerAmount }}</p>
+      <p><i class="fas fa-calendar-alt"></i> <strong>Ended:</strong> {{ auction.endTime | date }}</p>
+      <p><i class="fas fa-tag"></i> <strong>Category:</strong> {{ auction.category || 'N/A' }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ auction.location || 'N/A' }}</p>
+      <p class="payment-status" [ngClass]="auction.isPaid ? 'paid' : 'unpaid'">
+        <!-- <i class="fas" [ngClass]="auction.isPaid ? 'fa-check-circle' : 'fa-exclamation-circle'"></i> -->
+        <!-- <strong>Status:</strong> {{ auction.isPaid ? 'Paid' : 'Unpaid' }} -->
+      </p>
+      <button *ngIf="!auction.isPaid" (click)="makePaymentForAuction(auction)" class="payment-btn">
+        <i class="fas fa-credit-card"></i> Pay ${{ auction.winnerAmount }}
+      </button>
+   
+    </div>
+  </div>
+</div>
+<p *ngIf="wonAuctionsDetails.length === 0" class="no-auctions">You haven't won any auctions yet.</p>
+
+<h2 class="section-title">Your Active Auctions</h2>
+<div class="auctions-container">
+  <div *ngFor="let auction of activeAuctions" class="auction-card">
+    <img [src]="auction.imageUrl || 'assets/placeholder-image.jpg'" alt="{{ auction.name }}" class="auction-image" />
+    <div class="auction-details">
+      <h3>{{ auction.name }}</h3>
+      <p><i class="fas fa-money-bill-wave"></i> <strong>Current Bid:</strong> ${{ auction.currentBid }}</p>
+      <p><i class="fas fa-money-bill-wave"></i> <strong>Your Bid:</strong> ${{ auction.userBid }}</p>
+      <p><i class="fas fa-calendar-alt"></i> <strong>Ends:</strong> {{ auction.endTime | date }}</p>
+      <p><i class="fas fa-tag"></i> <strong>Category:</strong> {{ auction.category || 'N/A' }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ auction.location || 'N/A' }}</p>
+      <button (click)="viewAuctionDetails(auction)" class="details-btn">
+        <i class="fas fa-eye"></i> View Details
+      </button>
+    </div>
+  </div>
+</div>
+<p *ngIf="activeAuctions.length === 0" class="no-auctions">You are not participating in any active auctions.</p>
+
+<!-- <h2 class="section-title">Your Lost Auctions</h2>
+<div class="auctions-container">
+  <div *ngFor="let auction of lostAuctionsDetails" class="auction-card">
+    <img [src]="auction.imageUrl || 'assets/placeholder-image.jpg'" alt="{{ auction.title }}" class="auction-image" />
+    <div class="auction-details">
+      <h3>{{ auction.title }}</h3>
+      <p><i class="fas fa-user"></i> <strong>Winner:</strong> {{ auction.winner }}</p>
+      <p><i class="fas fa-money-bill-wave"></i> <strong>Winning Bid:</strong> ${{ auction.winnerAmount }}</p>
+      <p><i class="fas fa-calendar-alt"></i> <strong>Ended:</strong> {{ auction.endTime | date }}</p>
+      <p><i class="fas fa-tag"></i> <strong>Category:</strong> {{ auction.category || 'N/A' }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ auction.location || 'N/A' }}</p>
+      < <button (click)="viewAuctionDetails(auction.id)" class="details-btn">
+        <i class="fas fa-eye"></i> View Details
+      </button> >
+    </div>
+  </div>
+</div>
+<p *ngIf="lostAuctionsDetails.length === 0" class="no-auctions">You haven't lost any auctions yet.</p> -->
+
+  <app-chat></app-chat>

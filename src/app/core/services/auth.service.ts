@@ -9,62 +9,70 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(
+    private _HttpClient: HttpClient, 
+    private _Router: Router
+  ) {}
 
-  constructor(private _HttpClient : HttpClient , 
-    private _Router :Router
-  ){}
-userData:any =null;
+  userData: any = null;
 
+  // 🛠️ دالة تسجيل المستخدم
+  setRegisterForm(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/signup`, data);
+  }
 
+  // 🛠️ دالة تسجيل الدخول
+  setLoginForm(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/signin`, data);
+  }
 
-setRegisterForm(data:object):Observable<any>  {
-return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/signup`, data)
+  // ✅ دالة لاسترجاع بيانات المستخدم باستخدام الإيميل من الـ API
+  getUserByEmail(email: string): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/users?email=${email}`);
+  }
+
+  // 🛠️ حفظ بيانات المستخدم بعد تسجيل الدخول
+saveUserData(): void {
+  const token = localStorage.getItem('userToken');
+
+  if (token !== null) {
+    // ✅ فك التوكن باستخدام `jwtDecode`
+    this.userData = jwtDecode(token);
+    console.log("🔍 Decoded Token Data:", this.userData);
+
+    // ✅ استخراج البيانات من التوكن
+    const userId = this.userData.id;
+    const username = this.userData.name || "Unknown User";
+
+    // ✅ حفظ البيانات في `localStorage`
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('username', username);
+  }
 }
 
-setLoginForm(data:object) :Observable<any>{
+  // 🛠️ دالة تسجيل الخروج
+  logOut(): void {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userPhone');
+    localStorage.removeItem('userEmail');
+    this.userData = null;
+    this._Router.navigate(['/login']);
+  }
 
-  return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/signin`, data)
-}
+  // 🛠️ دالة نسيان كلمة المرور
+  forgetPassword(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`, data);
+  }
 
+  // 🛠️ دالة إعادة تعيين كلمة المرور
+  resetPassword(data: object): Observable<any> {
+    return this._HttpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword`, data);
+  }
 
-
-saveUserData():void{
-if(  localStorage.getItem('userToken')!== null)
-{
- this.userData = jwtDecode(localStorage.getItem('userToken')!);
-console.log(this.userData);
-
-}
-}
-
-logOut():void{
-
-  localStorage.removeItem('userToken');
-  this.userData = null;
-  this._Router.navigate(['/login'])
-
-}
-
-forgetPassword(data : object):Observable<any>{
-
-  return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`, data)
-}
-
-
-
-resetPassword(data:object):Observable<any>{
-
-  return this._HttpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword`, data)
-}
-
-resetCode(data:object):Observable<any>{
-
-
-
-  return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`, data ,)
- 
-}
-
-
-
+  // 🛠️ دالة التحقق من كود إعادة التعيين
+  resetCode(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`, data);
+  }
 }

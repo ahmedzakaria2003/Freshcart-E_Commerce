@@ -1,0 +1,36 @@
+<div class="chatbot-container">
+  <button class="chatbot-toggle" (click)="toggleChat()">
+    <i class="bi bi-lightbulb"></i>
+    <span class="toggle-text">Key Questions?</span>
+  </button>
+
+  <div class="chatbot-popup" *ngIf="isOpen">
+    <div class="chatbot-header">
+      <div class="chatbot-logo">
+        <i class="bi bi-lightbulb-fill me-2"></i>
+        <span>Recommended System</span>
+      </div>
+      <button class="close-btn" (click)="toggleChat()">×</button>
+    </div>
+
+    <div class="chatbot-body">
+      <div class="suggested-questions" *ngIf="chatHistory.length === 0">
+        <h6 class="suggested-title">Suggested Questions:</h6>
+        <button class="suggested-btn" (click)="selectSuggestedQuestion('How to bid')">How to bid?</button>
+        <button class="suggested-btn" (click)="selectSuggestedQuestion('How to pay')">How to pay?</button>
+        <button class="suggested-btn" (click)="selectSuggestedQuestion('What is an auction')">What is an auction?</button>
+      </div>
+
+      <div class="chat-messages" #chatMessages>
+        <div *ngFor="let message of chatHistory" class="message {{message.sender === 'You' ? 'user-message' : 'bot-message'}}">
+          <strong>{{message.sender}}:</strong> {{message.message}}
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" class="form-control" placeholder="Type your question...">
+        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
